@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Ovis Screen Assistant",
+  "version": "0.1.0",
+  "description": "Local Ovis2.5-2B vision assistant — ask questions about the current tab. Runs against your localhost MLX daemon.",
+  "permissions": ["sidePanel", "tabs", "activeTab", "storage"],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*",
+    "<all_urls>"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "Ovis Screen Assistant" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

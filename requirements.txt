@@ -1,0 +1,18 @@
+# MLX inference stack (Apple Silicon)
+mlx>=0.18.0
+mlx-lm>=0.18.0
+
+# Model tokenizer / processor / reference oracle
+# transformers 4.51.3 matches the checkpoint's transformers_version and the
+# trust_remote_code modeling file APIs.
+transformers==4.51.3
+torch
+numpy
+pillow
+safetensors
+
+# FastAPI daemon
+fastapi
+uvicorn[standard]
+python-multipart
+sse-starlette

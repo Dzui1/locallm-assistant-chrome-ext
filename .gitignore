@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# large artifacts / derived model (regenerate with convert.py)
+ovis_mlx_model/
+ovis_mlx_model_q*/
+artifacts/
+
+# the base checkpoint is downloaded separately
+Ovis2.5-2B/
