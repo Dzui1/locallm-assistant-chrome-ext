@@ -14,13 +14,15 @@ EARLY_STOP = ("\n\nConsidering the limited time by the user, I have to give the 
 
 
 def _step(model, cache, embeds, tokens, sampler, processors):
-    logits = model.llm(inputs=None, cache=cache, input_embeddings=embeds)[:, -1, :]
-    if processors:
-        for p in processors:
-            logits = p(tokens, logits)
-    logprobs = logits - mx.logsumexp(logits, axis=-1, keepdims=True)
-    tok = sampler(logprobs)
-    return int(tok.item())
+    with mx.stream(mx.cpu):
+        logits = model.llm(inputs=None, cache=cache, input_embeddings=embeds)[:, -1, :]
+        if processors:
+            for p in processors:
+                logits = p(tokens, logits)
+        logprobs = logits - mx.logsumexp(logits, axis=-1, keepdims=True)
+        tok = sampler(logprobs)
+        mx.eval(tok)
+        return int(tok.item())
 
 
 def stream_generate(model, processor, messages, *, max_tokens=512,

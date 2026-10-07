@@ -104,6 +104,7 @@ def _run_stream(req: ChatRequest):
     with _lock:
         yield _chunk({"role": "assistant", "content": ""}, created=created, cid=cid)
         finish = "stop"
+
         for ev in stream_generate(
             model, proc, msgs, max_tokens=req.max_tokens,
             temperature=req.temperature, top_p=req.top_p, top_k=req.top_k,
